@@ -67,6 +67,7 @@ export const TextProvider = ({ children }: any) => {
 
   const handleTextSpeed = (newSpeed: number) => {
     setBackgroundColorIsBlinking(false);
+    setTextIsBlinking(false)
     setTextSpeed(newSpeed);
   };
 

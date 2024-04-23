@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View, Dimensions } from "react-native";
 import Animated, {
   useSharedValue,
   withRepeat,
@@ -7,6 +7,8 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { TextContext } from "../context/Text.context";
+
+const width = Dimensions.get("window").width;
 
 const TextSignComponent = () => {
   const {
@@ -24,31 +26,34 @@ const TextSignComponent = () => {
     useState<string>(backgroundColorText);
 
   const backgroundColorOpacity = useSharedValue(1);
-  const blinkBackgroundColorTextShared = useSharedValue(
-    blinkBackgroundColorText
-  );
+  const textOpacity = useSharedValue(1);
 
   const duration = textSpeed < 100 ? -20 * textSpeed + 2000 : 100;
-
-  console.log(duration);
 
   const runBackgroundBlink = () => {
     backgroundColorOpacity.value = withRepeat(
       withSequence(
-        withTiming(
-          backgroundColorOpacity.value - 1,
-          {
-            duration: duration,
-          },
-          (isFinished) => {}
-        ),
-        withTiming(
-          backgroundColorOpacity.value + 1,
-          {
-            duration: duration,
-          },
-          (isFinished) => {}
-        )
+        withTiming(backgroundColorOpacity.value - 1, {
+          duration: duration,
+        }),
+        withTiming(backgroundColorOpacity.value + 1, {
+          duration: duration,
+        })
+      ),
+      -1,
+      true
+    );
+  };
+
+  const runTextBlink = () => {
+    textOpacity.value = withRepeat(
+      withSequence(
+        withTiming(textOpacity.value - 1, {
+          duration: duration,
+        }),
+        withTiming(textOpacity.value + 1, {
+          duration: duration,
+        })
       ),
       -1,
       true
@@ -60,6 +65,11 @@ const TextSignComponent = () => {
     else backgroundColorOpacity.value = 1;
   }, [backgroundColorIsBlinking]);
 
+  useEffect(() => {
+    if (textIsBlinking) runTextBlink();
+    else textOpacity.value = 1;
+  }, [textIsBlinking]);
+
   return (
     <>
       <View style={{ width: "100%" }}>
@@ -67,7 +77,6 @@ const TextSignComponent = () => {
           horizontal
           style={{
             width: "100%",
-            backgroundColor: blinkBackgroundColorText,
             display: "flex",
             flexDirection: "row",
           }}
@@ -75,6 +84,7 @@ const TextSignComponent = () => {
           <View
             style={{
               width: "100%",
+              minWidth: width,
               height: 300,
               position: "relative",
               display: "flex",
@@ -82,24 +92,44 @@ const TextSignComponent = () => {
               justifyContent: "center",
             }}
           >
-            <Animated.View
+            <View
               style={{
-                backgroundColor: currentBackgroundColor,
                 width: "100%",
-                opacity: backgroundColorOpacity,
+                backgroundColor: blinkBackgroundColorText,
                 position: "absolute",
                 height: "100%",
               }}
             />
 
-            <Text
+            <Animated.View
+              style={{
+                backgroundColor: currentBackgroundColor,
+                width: "100%",
+                opacity: backgroundColorIsBlinking ? backgroundColorOpacity : 1,
+                position: "absolute",
+                height: "100%",
+              }}
+            />
+
+            <Animated.Text
               style={{
                 fontSize: 150,
-                color: currentColorText,
+                color: blinkColorText,
+                position: "absolute",
               }}
             >
               {currentText}
-            </Text>
+            </Animated.Text>
+
+            <Animated.Text
+              style={{
+                fontSize: 150,
+                color: currentColorText,
+                opacity: textIsBlinking ? textOpacity : 1,
+              }}
+            >
+              {currentText}
+            </Animated.Text>
           </View>
           <View style={{ paddingRight: 50 }} />
         </ScrollView>

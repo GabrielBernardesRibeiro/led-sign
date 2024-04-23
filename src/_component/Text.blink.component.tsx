@@ -6,7 +6,12 @@ import ColorPicker from "react-native-wheel-color-picker";
 import { TextContext } from "../context/Text.context";
 
 const TextBlinkComponent = () => {
-  const { blinkColorText, setBlinkColorText } = useContext(TextContext);
+  const {
+    blinkColorText,
+    setBlinkColorText,
+    textIsBlinking,
+    setTextIsBlinking,
+  } = useContext(TextContext);
   const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -14,6 +19,10 @@ const TextBlinkComponent = () => {
   const hideModal = () => setVisible(false);
   const onColorChange = (color: string) => {
     setBlinkColorText(color);
+  };
+
+  const handleTextBlink = () => {
+    setTextIsBlinking(!textIsBlinking);
   };
 
   return (
@@ -29,12 +38,12 @@ const TextBlinkComponent = () => {
         <RadioButton
           value="first"
           color="#2EA44F"
-          status={checked ? "checked" : "unchecked"}
-          onPress={() => setChecked(!checked)}
+          status={textIsBlinking ? "checked" : "unchecked"}
+          onPress={handleTextBlink}
         />
         <Text style={{ color: "white" }}>Piscar Texto</Text>
 
-        {checked && (
+        {textIsBlinking && (
           <TouchableOpacity
             onPress={showModal}
             style={{
