@@ -24,6 +24,8 @@ interface TextInterface {
   textSpeed: number;
   setTextSpeed: Dispatch<SetStateAction<number>>;
   handleTextSpeed: (newSpeed: number) => void;
+  show: boolean;
+  setShow: Dispatch<SetStateAction<boolean>>;
 }
 
 export const TextContext = createContext<TextInterface>({
@@ -47,9 +49,12 @@ export const TextContext = createContext<TextInterface>({
   textSpeed: 50,
   setTextSpeed: () => console.warn("setTextSpeed not ready yet"),
   handleTextSpeed: () => console.warn("handleTextSpeed not ready yet"),
+  show: false,
+  setShow: () => console.warn("setShow not ready yet"),
 });
 
 export const TextProvider = ({ children }: any) => {
+  const [show, setShow] = useState(false);
   const [currentText, setCurrentText] = useState<string>("Digite seu texto");
 
   const [colorText, setColorText] = useState<string>("white");
@@ -67,7 +72,7 @@ export const TextProvider = ({ children }: any) => {
 
   const handleTextSpeed = (newSpeed: number) => {
     setBackgroundColorIsBlinking(false);
-    setTextIsBlinking(false)
+    setTextIsBlinking(false);
     setTextSpeed(newSpeed);
   };
 
@@ -93,6 +98,8 @@ export const TextProvider = ({ children }: any) => {
         textSpeed,
         setTextSpeed,
         handleTextSpeed,
+        show,
+        setShow,
       }}
     >
       {children}
