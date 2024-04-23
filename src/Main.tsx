@@ -27,7 +27,7 @@ const Main = () => {
 
         <TextSignComponent />
 
-        <Card style={{ width: "90%", elevation: 5 }}>
+        <Card style={{ width: "90%", elevation: 5, marginTop: 25 }}>
           <Card.Content>
             <TextInput
               label={currentText}
