@@ -103,7 +103,7 @@ const TextSignComponent = () => {
 
             <Animated.View
               style={{
-                backgroundColor: currentBackgroundColor,
+                backgroundColor: backgroundColorText,
                 width: "100%",
                 opacity: backgroundColorIsBlinking ? backgroundColorOpacity : 1,
                 position: "absolute",
@@ -124,7 +124,7 @@ const TextSignComponent = () => {
             <Animated.Text
               style={{
                 fontSize: 150,
-                color: currentColorText,
+                color: colorText,
                 opacity: textIsBlinking ? textOpacity : 1,
               }}
             >
