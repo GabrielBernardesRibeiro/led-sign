@@ -10,9 +10,9 @@ const BackgroundBlinkComponent = () => {
     blinkBackgroundColorText,
     setBlinkBackgroundColorText,
     setBackgroundColorIsBlinking,
+    backgroundColorIsBlinking,
   } = useContext(TextContext);
 
-  const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
   const [color, setColor] = useState("");
 
@@ -23,9 +23,8 @@ const BackgroundBlinkComponent = () => {
   };
 
   const handleBackgroundBlink = () => {
-    const currentStateOfChecked = !checked;
+    const currentStateOfChecked = !backgroundColorIsBlinking;
     setBackgroundColorIsBlinking(currentStateOfChecked);
-    setChecked(currentStateOfChecked);
   };
 
   return (
@@ -41,12 +40,12 @@ const BackgroundBlinkComponent = () => {
         <RadioButton
           value="first"
           color="#2EA44F"
-          status={checked ? "checked" : "unchecked"}
+          status={backgroundColorIsBlinking ? "checked" : "unchecked"}
           onPress={handleBackgroundBlink}
         />
         <Text style={{ color: "white" }}>Piscar Fundo</Text>
 
-        {checked && (
+        {backgroundColorIsBlinking && (
           <TouchableOpacity
             onPress={showModal}
             style={{

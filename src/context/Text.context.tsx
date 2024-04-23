@@ -23,6 +23,7 @@ interface TextInterface {
   setBackgroundColorIsBlinking: Dispatch<SetStateAction<boolean>>;
   textSpeed: number;
   setTextSpeed: Dispatch<SetStateAction<number>>;
+  handleTextSpeed: (newSpeed: number) => void;
 }
 
 export const TextContext = createContext<TextInterface>({
@@ -45,6 +46,7 @@ export const TextContext = createContext<TextInterface>({
     console.warn("setBackgroundColorIsBlinking not ready yet"),
   textSpeed: 50,
   setTextSpeed: () => console.warn("setTextSpeed not ready yet"),
+  handleTextSpeed: () => console.warn("handleTextSpeed not ready yet"),
 });
 
 export const TextProvider = ({ children }: any) => {
@@ -62,6 +64,11 @@ export const TextProvider = ({ children }: any) => {
     useState<boolean>(false);
 
   const [textSpeed, setTextSpeed] = useState<number>(50);
+
+  const handleTextSpeed = (newSpeed: number) => {
+    setBackgroundColorIsBlinking(false);
+    setTextSpeed(newSpeed);
+  };
 
   useEffect(() => {}, []);
 
@@ -84,6 +91,7 @@ export const TextProvider = ({ children }: any) => {
         setBackgroundColorIsBlinking,
         textSpeed,
         setTextSpeed,
+        handleTextSpeed,
       }}
     >
       {children}

@@ -28,7 +28,7 @@ const TextSignComponent = () => {
     blinkBackgroundColorText
   );
 
-  const duration = textSpeed < 100 ? -20 * textSpeed + 2000 : 100
+  const duration = textSpeed < 100 ? -20 * textSpeed + 2000 : 100;
 
   console.log(duration);
 
@@ -54,11 +54,6 @@ const TextSignComponent = () => {
       true
     );
   };
-
-  useEffect(() => {
-    backgroundColorOpacity.value = 1;
-    if (backgroundColorIsBlinking) runBackgroundBlink();
-  }, [textSpeed]);
 
   useEffect(() => {
     if (backgroundColorIsBlinking) runBackgroundBlink();

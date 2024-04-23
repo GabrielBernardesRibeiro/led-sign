@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { TextContext } from "../context/Text.context";
 
 const CustomSliderComponent = () => {
-  const { textSpeed, setTextSpeed } = useContext(TextContext);
+  const { textSpeed, handleTextSpeed } = useContext(TextContext);
 
   return (
     <>
@@ -25,7 +25,7 @@ const CustomSliderComponent = () => {
           minimumValue={0}
           value={textSpeed}
           maximumValue={100}
-          onSlidingComplete={(value) => setTextSpeed(value)}
+          onSlidingComplete={(value) => handleTextSpeed(value)}
           step={1}
           minimumTrackTintColor="#2EA44F)"
           maximumTrackTintColor="lightgray"
