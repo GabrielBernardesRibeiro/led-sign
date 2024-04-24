@@ -1,4 +1,4 @@
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import ModalComponent from "./Modal.component";
 import { useContext, useState } from "react";
 import ColorPicker from "react-native-wheel-color-picker";
@@ -19,17 +19,29 @@ const TextColorComponent = () => {
   return (
     <>
       <View style={{ display: "flex", flexDirection: "column" }}>
-        <TouchableOpacity
-          onPress={showModal}
+        <View
           style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            transform: [],
             width: 125,
-            height: 35,
-            backgroundColor: colorText,
+            alignItems: "center",
             marginRight: 10,
-            borderWidth: 1,
-            borderColor: "lightgray",
           }}
-        />
+        >
+          <Text style={{ color: "white" }}>Cor do texto</Text>
+          <TouchableOpacity
+            onPress={showModal}
+            style={{
+              height: 35,
+              width: "100%",
+              backgroundColor: colorText,
+              borderWidth: 1,
+              borderColor: "lightgray",
+            }}
+          />
+        </View>
         <ModalComponent
           visible={visible}
           showModal={showModal}
@@ -83,10 +95,3 @@ const TextColorComponent = () => {
 };
 
 export default TextColorComponent;
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 70,
-    paddingHorizontal: 24,
-  },
-});

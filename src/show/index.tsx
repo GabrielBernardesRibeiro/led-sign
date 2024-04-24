@@ -1,15 +1,22 @@
-import { ScrollView, View, Dimensions } from "react-native";
-import { useContext, useEffect } from "react";
+import { Text, View, Dimensions } from "react-native";
+import {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { TextContext } from "../context/Text.context";
 import CloseButton from "./close.button";
 import Animated, {
+  useAnimatedStyle,
   useSharedValue,
   withRepeat,
   withSequence,
+  withSpring,
   withTiming,
+  useAnimatedReaction,
 } from "react-native-reanimated";
-import AutoScroll from "@homielab/react-native-auto-scroll";
-import { Text } from "react-native-paper";
 
 const height = Dimensions.get("screen").height;
 
@@ -69,6 +76,25 @@ const Show = () => {
     else textOpacity.value = 1;
   }, [textIsBlinking]);
 
+
+  const textPositionY = useSharedValue(height + 350);
+  const animatedLinear = useAnimatedStyle(() => ({
+    transform: [{ translateY: textPositionY.value }, { rotateZ: "90deg" }],
+  }));
+
+  useAnimatedReaction(
+    () => {
+      return textPositionY.value;
+    },
+    (currentValue) => {
+      textPositionY.value = textPositionY.value - 5;
+
+      if (currentValue < -1 * currentText.length * 100 + 100) {
+        textPositionY.value = height + 350;
+      }
+    }
+  );
+
   return (
     <View
       style={{
@@ -107,26 +133,48 @@ const Show = () => {
           }}
         />
 
-        <AutoScroll
+        <Animated.View
           style={{
+            width: "100%",
             position: "absolute",
-            top: 360,
-            backgroundColor: "yellow",
-            transform: [
-              {
-                rotateZ: "90deg",
-              },
-            ],
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            flexWrap: "nowrap",
           }}
         >
-          <View
-            style={{
-              backgroundColor: "blue",
-            }}
+          <Animated.Text
+            style={[
+              {
+                color: blinkColorText,
+                position: "absolute",
+                width: currentText.length * 150,
+                fontSize: 220,
+                flexShrink: 1,
+              },
+              animatedLinear,
+            ]}
           >
-            <Text style={{ color: "red" }}>asdasdasd</Text>
-          </View>
-        </AutoScroll>
+            {currentText}
+          </Animated.Text>
+
+          <Animated.Text
+            style={[
+              {
+                color: colorText,
+                opacity: textIsBlinking ? textOpacity : 1,
+                width: currentText.length * 150,
+                fontSize: 220,
+                flexShrink: 1,
+              },
+              animatedLinear,
+            ]}
+          >
+            {currentText}
+          </Animated.Text>
+        </Animated.View>
       </View>
 
       <CloseButton />

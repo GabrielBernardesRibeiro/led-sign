@@ -20,17 +20,29 @@ const BackgroundColorComponent = () => {
   return (
     <>
       <View style={{ display: "flex", flexDirection: "column" }}>
-        <TouchableOpacity
-          onPress={showModal}
+        <View
           style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            transform: [],
             width: 125,
-            height: 35,
-            backgroundColor: backgroundColorText,
-            marginRight: 10,
-            borderWidth: 1,
-            borderColor: "lightgray",
+            alignItems: "center",
+            marginLeft: 10,
           }}
-        />
+        >
+          <Text style={{ color: "white" }}>Cor do fundo</Text>
+          <TouchableOpacity
+            onPress={showModal}
+            style={{
+              width: "100%",
+              height: 35,
+              backgroundColor: backgroundColorText,
+              borderWidth: 1,
+              borderColor: "lightgray",
+            }}
+          />
+        </View>
         <ModalComponent
           visible={visible}
           showModal={showModal}
