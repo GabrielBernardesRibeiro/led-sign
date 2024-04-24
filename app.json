@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "led-sign",
+    "name": "Letreiro",
     "slug": "led-sign",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,23 +8,35 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#2D2F37"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#2D2F37"
+      },
+      "versionCode": 1,
+      "package": "com.aota.led-sign.app",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e28f5d08-7af6-473a-9fff-eb4223ed7ed8"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e28f5d08-7af6-473a-9fff-eb4223ed7ed8"
     }
   }
 }
