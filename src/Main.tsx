@@ -2,11 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import { useContext, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import {
-  useTheme,
-  Avatar,
   Button,
   Card,
-  Text,
   TextInput,
 } from "react-native-paper";
 import TextColorComponent from "./_component/Text.color.component";
@@ -18,7 +15,7 @@ import { TextContext } from "./context/Text.context";
 import TextSignComponent from "./_component/Text.sign.component";
 
 const Main = () => {
-  const { currentText, setCurrentText } = useContext(TextContext);
+  const { currentText, setCurrentText, setShow } = useContext(TextContext);
 
   return (
     <>
@@ -56,7 +53,7 @@ const Main = () => {
             <TextBlinkComponent />
           </Card.Content>
           <Card.Actions>
-            <Button style={{ backgroundColor: "#2EA44F" }}>Ir</Button>
+            <Button onPress={() => setShow(true)} style={{ backgroundColor: "#2EA44F" }}>Ir</Button>
           </Card.Actions>
         </Card>
       </View>

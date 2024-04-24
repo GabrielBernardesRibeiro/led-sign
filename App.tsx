@@ -4,6 +4,7 @@ import {
 } from "react-native-paper";
 import Main from "./src/Main";
 import { TextProvider } from "./src/context/Text.context";
+import EntryPoint from "./src/entry-point";
 
 const theme = {
   ...DefaultTheme,
@@ -13,7 +14,7 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
       <TextProvider>
-        <Main />
+        <EntryPoint />
       </TextProvider>
     </PaperProvider>
   );

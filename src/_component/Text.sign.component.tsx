@@ -21,9 +21,6 @@ const TextSignComponent = () => {
     blinkBackgroundColorText,
     textSpeed,
   } = useContext(TextContext);
-  const [currentColorText, setCurrentColorText] = useState<string>(colorText);
-  const [currentBackgroundColor, setCurrentBackgroundColor] =
-    useState<string>(backgroundColorText);
 
   const backgroundColorOpacity = useSharedValue(1);
   const textOpacity = useSharedValue(1);
